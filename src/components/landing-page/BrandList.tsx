@@ -7,7 +7,7 @@ import LV from '../../assets/louis-vitton.svg';
 const BrandList = () => {
   return (
     <div>
-      <div className='flex flex-wrap mt-10 justify-between'>
+      <div className='grid grid-cols-3 gap-4 items-center md:flex flex-wrap mt-10 justify-between'>
         <img src={Chanel} />
         <img src={LV} />
         <img src={Prada} />
