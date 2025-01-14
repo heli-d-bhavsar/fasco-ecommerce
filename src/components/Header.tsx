@@ -1,48 +1,19 @@
 import { useState } from 'react';
-import Sidebar from 'react-sidebar';
+import Drawer from 'react-modern-drawer';
+import 'react-modern-drawer/dist/index.css';
+import { HiBars3 } from 'react-icons/hi2';
 
 const Header = () => {
-  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
-
-  const handleSetSidebarOpen = (open: boolean): void => {
-    setSidebarOpen(open);
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleDrawer = () => {
+    console.log('Toggling');
+    setIsOpen((prevState) => !prevState);
   };
   return (
     <>
-      <div className='block md:hidden'>
-        <Sidebar
-          sidebar={
-            <div className='flex flex-col p-5'>
-              <div className='font-logo text-[52px]'>FASCO</div>
-              <div>
-                <ul className='flex flex-col gap-7 text-base items-center justify-center'>
-                  <li>Home</li>
-                  <li>Deals</li>
-                  <li>New Arrivals</li>
-                  <li>Packages</li>
-                  <li>Sign in</li>
-                  <li>
-                    <button className='bg-black text-white w-[152px] h-[56px] rounded-xl'>
-                      Sign up
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          }
-          open={sidebarOpen}
-          onSetOpen={handleSetSidebarOpen}
-          styles={{ sidebar: { background: 'white' } }}
-        >
-          <button onClick={() => handleSetSidebarOpen(true)}>
-            Open sidebar
-          </button>
-        </Sidebar>
-      </div>
-
       <header className='hidden md:block'>
-        <div className='max-w-7xl h-[20vh] mx-auto'>
-          <div className='flex items-center justify-between text-center'>
+        <div className='max-w-7xl mx-auto px-4'>
+          <div className='flex items-center justify-between text-center h-[20vh]'>
             <div className='font-logo text-[52px]'>FASCO</div>
             <div>
               <ul className='flex gap-7 text-base items-center justify-center'>
@@ -52,7 +23,7 @@ const Header = () => {
                 <li>Packages</li>
                 <li>Sign in</li>
                 <li>
-                  <button className='bg-black text-white w-[152px] h-[56px] rounded-xl'>
+                  <button className='bg-black text-white w-40 h-14 rounded-xl'>
                     Sign up
                   </button>
                 </li>
@@ -61,6 +32,35 @@ const Header = () => {
           </div>
         </div>
       </header>
+
+      <div className='block md:hidden px-4'>
+        <div className='flex h-[20vh] justify-between items-center'>
+          <div className='font-logo text-4xl'>FASCO</div>
+          <button onClick={toggleDrawer}>
+            <HiBars3 />
+          </button>
+        </div>
+
+        <Drawer open={isOpen} onClose={() => toggleDrawer()} direction='left'>
+          <div className='flex flex-col items-center gap-5 text-center mt-14'>
+            <div className='font-logo text-4xl'>FASCO</div>
+            <div>
+              <ul className='flex flex-col gap-5 text-base items-center justify-center'>
+                <li>Home</li>
+                <li>Deals</li>
+                <li>New Arrivals</li>
+                <li>Packages</li>
+                <li>Sign in</li>
+                <li>
+                  <button className='bg-black text-white w-40 h-14 rounded-xl'>
+                    Sign up
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </Drawer>
+      </div>
     </>
   );
 };
