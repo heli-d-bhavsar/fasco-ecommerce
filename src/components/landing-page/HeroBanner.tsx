@@ -2,8 +2,11 @@ import LandingMan1 from '../../assets/landing-man-1.svg';
 import LandingGirls2 from '../../assets/girls-2.svg';
 import LandingGirls4 from '../../assets/girls-4.svg';
 import LandingMan2 from '../../assets/landing-man-2.svg';
+import { useNavigate } from 'react-router';
 
 const HeroBanner = () => {
+  const navigate = useNavigate();
+
   return (
     <div>
       <div className='flex gap-3'>
@@ -20,7 +23,10 @@ const HeroBanner = () => {
               SALE
             </p>
             <p className='text-xl tracking-wide mb-5'> NEW COLLECTION</p>
-            <button className='bg-black text-white w-[152px] h-[56px] rounded-xl'>
+            <button
+              className='bg-black text-white w-[152px] h-[56px] rounded-xl'
+              onClick={() => navigate('/signup')}
+            >
               Sign up
             </button>
           </div>

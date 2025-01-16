@@ -2,13 +2,15 @@ import { useState } from 'react';
 import Drawer from 'react-modern-drawer';
 import 'react-modern-drawer/dist/index.css';
 import { HiBars3 } from 'react-icons/hi2';
+import { useNavigate } from 'react-router';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleDrawer = () => {
-    console.log('Toggling');
     setIsOpen((prevState) => !prevState);
   };
+  const navigate = useNavigate();
+
   return (
     <>
       <header className='hidden md:block'>
@@ -23,7 +25,10 @@ const Header = () => {
                 <li>Packages</li>
                 <li>Sign in</li>
                 <li>
-                  <button className='bg-black text-white w-40 h-14 rounded-xl'>
+                  <button
+                    className='bg-black text-white w-40 h-14 rounded-xl'
+                    onClick={() => navigate('/signup')}
+                  >
                     Sign up
                   </button>
                 </li>
@@ -52,7 +57,10 @@ const Header = () => {
                 <li>Packages</li>
                 <li>Sign in</li>
                 <li>
-                  <button className='bg-black text-white w-40 h-14 rounded-xl'>
+                  <button
+                    className='bg-black text-white w-40 h-14 rounded-xl'
+                    onClick={() => navigate('/signup')}
+                  >
                     Sign up
                   </button>
                 </li>
