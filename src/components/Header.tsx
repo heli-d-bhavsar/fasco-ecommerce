@@ -42,7 +42,7 @@ const Header = () => {
         <div className='flex h-[20vh] justify-between items-center'>
           <div className='font-logo text-4xl'>FASCO</div>
           <button onClick={toggleDrawer}>
-            <HiBars3 />
+            <HiBars3 size={30} />
           </button>
         </div>
 
