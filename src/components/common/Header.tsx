@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import { HiBars3 } from 'react-icons/hi2';
 import Drawer from 'react-modern-drawer';
 import 'react-modern-drawer/dist/index.css';
-import { HiBars3 } from 'react-icons/hi2';
 import { useNavigate } from 'react-router';
+import { useAuthContext } from '../../context/AuthContext';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,6 +11,7 @@ const Header = () => {
     setIsOpen((prevState) => !prevState);
   };
   const navigate = useNavigate();
+  const { user } = useAuthContext();
 
   return (
     <>
@@ -23,15 +25,18 @@ const Header = () => {
                 <li>Deals</li>
                 <li>New Arrivals</li>
                 <li>Packages</li>
-                <li>Sign in</li>
-                <li>
-                  <button
-                    className='bg-black text-white w-40 h-14 rounded-xl'
-                    onClick={() => navigate('/signup')}
-                  >
-                    Sign up
-                  </button>
-                </li>
+                {user && user.email ? (
+                  <p>{user.displayName}</p>
+                ) : (
+                  <li>
+                    <button
+                      className='bg-black text-white w-40 h-14 rounded-xl'
+                      onClick={() => navigate('/signup')}
+                    >
+                      Sign up
+                    </button>
+                  </li>
+                )}
               </ul>
             </div>
           </div>
@@ -55,15 +60,18 @@ const Header = () => {
                 <li>Deals</li>
                 <li>New Arrivals</li>
                 <li>Packages</li>
-                <li>Sign in</li>
-                <li>
-                  <button
-                    className='bg-black text-white w-40 h-14 rounded-xl'
-                    onClick={() => navigate('/signup')}
-                  >
-                    Sign up
-                  </button>
-                </li>
+                {user && user.email ? (
+                  <p>{user.displayName}</p>
+                ) : (
+                  <li>
+                    <button
+                      className='bg-black text-white w-40 h-14 rounded-xl'
+                      onClick={() => navigate('/signup')}
+                    >
+                      Sign up
+                    </button>
+                  </li>
+                )}
               </ul>
             </div>
           </div>
