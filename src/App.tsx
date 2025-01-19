@@ -3,6 +3,7 @@ import SignUp from './pages/signup';
 import Home from './pages/home';
 import { AuthProvider } from './context/AuthContext';
 import Layout from './components/common/Layout';
+import Shop from './pages/shop';
 function App() {
   return (
     <AuthProvider>
@@ -10,6 +11,7 @@ function App() {
         <Routes>
           <Route element={<Layout />}>
             <Route index element={<Home />} />
+            <Route path='shop' element={<Shop />} />
           </Route>
           <Route path='signup' element={<SignUp />} />
         </Routes>
