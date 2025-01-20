@@ -4,6 +4,7 @@ import Home from './pages/home';
 import { AuthProvider } from './context/AuthContext';
 import Layout from './components/common/Layout';
 import Shop from './pages/shop';
+import ProductDetail from './pages/product';
 function App() {
   return (
     <AuthProvider>
@@ -12,6 +13,7 @@ function App() {
           <Route element={<Layout />}>
             <Route index element={<Home />} />
             <Route path='shop' element={<Shop />} />
+            <Route path='product' element={<ProductDetail />} />
           </Route>
           <Route path='signup' element={<SignUp />} />
         </Routes>
