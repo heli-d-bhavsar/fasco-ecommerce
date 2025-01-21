@@ -9,6 +9,7 @@ import {
 import Drawer from 'react-modern-drawer';
 import 'react-modern-drawer/dist/index.css';
 import { BsFillFilterSquareFill } from 'react-icons/bs';
+import { MdFilterListOff } from 'react-icons/md';
 
 const LIMIT = 9;
 
@@ -74,19 +75,20 @@ const Shop = () => {
       <h1 className='font-logo text-[42px] mb-10'>Fashion</h1>
 
       <div className='flex gap-3'>
-        <button onClick={toggleDrawer} className='md:hidden flex'>
-          <BsFillFilterSquareFill />
+        <button onClick={toggleDrawer} className='md:hidden flex '>
+          <BsFillFilterSquareFill size={20} />
         </button>
 
         <div className='hidden md:flex md:flex-col md:w-1/4'>
-          <div className='flex justify-between items-center'>
-            <h2 className='font-logo text-3xl mb-5'>Filters</h2>
+          <div className='flex justify-between items-center mb-5'>
+            <h2 className='font-logo text-3xl'>Filters</h2>
             <button
               onClick={() => {
                 setSelectedCategory('');
               }}
+              className='h-8 bg-black px-4 text-white rounded'
             >
-              Clear Filter
+              Clear
             </button>
           </div>
 
@@ -161,10 +163,21 @@ const Shop = () => {
         open={isOpen}
         onClose={() => toggleDrawer()}
         direction='left'
-        className='md:hidden flex flex-col  items-center justify-center p-2 gap-2 h-screen overflow-hidden'
+        className='md:hidden flex flex-col  justify-center p-2 gap-2 h-screen overflow-hidden'
       >
-        <h2 className='font-logo text-2xl mb-5'>Filters</h2>
-        <h3 className='font-logo text-sm mb-5'>Categories</h3>
+        <div className='flex justify-between items-center mt-5'>
+          <h2 className='font-logo text-2xl'>Filters</h2>
+          <button
+            onClick={() => {
+              setSelectedCategory('');
+            }}
+            className=' bg-black p-2 text-white rounded'
+          >
+            <MdFilterListOff size={16} />
+          </button>
+        </div>
+
+        <h3 className='font-logo text-lg mb-3'>Categories</h3>
 
         <ul className='flex flex-col overflow-y-auto w-full h-full'>
           {categories.map((category) => {
