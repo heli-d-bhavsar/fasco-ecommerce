@@ -14,6 +14,8 @@ const LIMIT = 9;
 
 const Shop = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [catProducts, setCatProducts] = useState<Product[]>([]);
+
   const [categories, setCategories] = useState<ProductCategories[]>([]);
   const [page, setPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
@@ -37,9 +39,10 @@ const Shop = () => {
     );
     const data = await response.json();
     setTotalPage(Math.ceil(data.total / LIMIT));
-    console.log(data.products);
-    setProducts(data.products);
+    setCatProducts(data.products);
   };
+
+  const clearFilters = () => {};
 
   useEffect(() => {
     const skip = page * LIMIT;
@@ -69,13 +72,24 @@ const Shop = () => {
   return (
     <div className='flex flex-col justify-center items-center'>
       <h1 className='font-logo text-[42px] mb-10'>Fashion</h1>
+
       <div className='flex gap-3'>
         <button onClick={toggleDrawer} className='md:hidden flex'>
           <BsFillFilterSquareFill />
         </button>
 
         <div className='hidden md:flex md:flex-col md:w-1/4'>
-          <h2 className='font-logo text-3xl mb-5'>Filters</h2>
+          <div className='flex justify-between items-center'>
+            <h2 className='font-logo text-3xl mb-5'>Filters</h2>
+            <button
+              onClick={() => {
+                setSelectedCategory('');
+              }}
+            >
+              Clear Filter
+            </button>
+          </div>
+
           <h3 className='font-logo text-lg mb-5'>Categories</h3>
 
           <ul className='flex flex-wrap gap-2'>
@@ -99,9 +113,13 @@ const Shop = () => {
         </div>
         <div className='w-full md:w-3/4'>
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10  mb-20'>
-            {products.map((product) => {
-              return <ProductCard product={product} key={product.id} />;
-            })}
+            {selectedCategory
+              ? catProducts.map((product) => {
+                  return <ProductCard product={product} key={product.id} />;
+                })
+              : products.map((product) => {
+                  return <ProductCard product={product} key={product.id} />;
+                })}
           </div>
 
           {/* Pagination Start */}
