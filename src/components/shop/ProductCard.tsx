@@ -8,13 +8,17 @@ interface ProductCardI {
 const ProductCard: React.FC<ProductCardI> = ({ product }) => {
   const navigate = useNavigate();
   const { setProduct } = useProductContext();
-  setProduct(product);
+
+  const navigateToProductDetail = () => {
+    setProduct(product);
+    navigate('/product');
+  };
 
   return (
     <div
       className='flex flex-col gap-3 border rounded-md p-5 cursor-pointer'
       onClick={() => {
-        navigate(`/product`);
+        navigateToProductDetail();
       }}
     >
       <img

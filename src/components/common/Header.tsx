@@ -4,6 +4,7 @@ import Drawer from 'react-modern-drawer';
 import 'react-modern-drawer/dist/index.css';
 import { useNavigate } from 'react-router';
 import { useAuthContext } from '../../context/AuthContext';
+import { BsHandbag } from 'react-icons/bs';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,12 +22,28 @@ const Header = () => {
             <div className='font-logo text-[52px]'>FASCO</div>
             <div>
               <ul className='flex gap-7 text-base items-center justify-center'>
-                <li>Home</li>
+                <li
+                  className='cursor-pointer	'
+                  onClick={() => {
+                    navigate('/');
+                  }}
+                >
+                  Home
+                </li>
                 <li>Deals</li>
                 <li>New Arrivals</li>
                 <li>Packages</li>
                 {user && user.email ? (
-                  <p>{user.displayName}</p>
+                  <>
+                    <p>{user.displayName}</p>
+                    <button
+                      onClick={() => {
+                        navigate('/cart');
+                      }}
+                    >
+                      <BsHandbag size={20} />
+                    </button>
+                  </>
                 ) : (
                   <li>
                     <button

@@ -6,14 +6,15 @@ import { FiMinus } from 'react-icons/fi';
 import { useProductContext } from '../../context/ProductContext';
 const ProductDetail = () => {
   const { product } = useProductContext();
-  console.log(product);
   return (
     <div>
       <div className='flex flex-col md:flex-row gap-6'>
         <div className='flex w-full md:w-1/2 gap-2'>
           <div className='grid grid-rows-5'>
-            {product?.images.map((image) => {
-              return <img src={image} className='object-cover w-14' />;
+            {product?.images.map((image, index) => {
+              return (
+                <img src={image} className='object-cover w-14' key={index} />
+              );
             })}
           </div>
           <div>
