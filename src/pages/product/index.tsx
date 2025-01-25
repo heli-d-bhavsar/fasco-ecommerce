@@ -3,9 +3,49 @@ import { MdOutlineStarPurple500 } from 'react-icons/md';
 import { FaEye } from 'react-icons/fa';
 import { FaPlus } from 'react-icons/fa6';
 import { FiMinus } from 'react-icons/fi';
-import { useProductContext } from '../../context/ProductContext';
+import { useEffect, useState } from 'react';
+import { Product } from '../../interface/Product';
+import { useParams } from 'react-router';
 const ProductDetail = () => {
-  const { product } = useProductContext();
+  const [product, setProduct] = useState<Product | null>();
+  const [quantity, setQuantity] = useState(1);
+  const { productId } = useParams();
+
+  const addToCart = async () => {
+    try {
+      const response = await fetch('https://dummyjson.com/carts/1', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          merge: true,
+          products: [
+            {
+              id: productId,
+              quantity: quantity,
+            },
+          ],
+        }),
+      });
+      if (response) {
+        console.log('Product Added');
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    try {
+      fetch(`https://dummyjson.com/products/${productId}`).then((response) =>
+        response.json().then((data: Product) => {
+          setProduct(data);
+        })
+      );
+    } catch (e) {
+      console.log(e);
+    }
+  }, [productId]);
+
   return (
     <div>
       <div className='flex flex-col md:flex-row gap-6'>
@@ -52,7 +92,7 @@ const ProductDetail = () => {
           </div>
           <div className='flex gap-2 flex-col'>
             <p className='text-[#666666]'>
-              Only <span className='font-bold'>{product?.stock}</span>item(s)
+              Only <span className='font-bold'>{product?.stock}</span> item(s)
               left in stock!
             </p>
             <div className='w-full bg-gray-200 rounded-full h-1 mb-4 '>
@@ -89,15 +129,27 @@ const ProductDetail = () => {
               <p className='font-logo'>Quantity</p>
               <div className='flex gap-3'>
                 <div className='border-2 border-gray-300 justify-between flex gap-6 rounded items-center px-4 h-11'>
-                  <button>
+                  <button
+                    onClick={() => {
+                      setQuantity(quantity + 1);
+                    }}
+                  >
                     <FaPlus size={12} />
                   </button>
-                  1
-                  <button>
+                  {quantity}
+                  <button
+                    disabled={quantity == 1}
+                    onClick={() => {
+                      setQuantity(quantity - 1);
+                    }}
+                  >
                     <FiMinus size={12} />
                   </button>
                 </div>
-                <button className='border-2 border-black h-11 rounded font-logo w-full'>
+                <button
+                  className='border-2 border-black h-11 rounded font-logo w-full'
+                  onClick={() => addToCart()}
+                >
                   Add to cart
                 </button>
               </div>

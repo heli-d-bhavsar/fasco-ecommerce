@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { HiBars3 } from 'react-icons/hi2';
 import Drawer from 'react-modern-drawer';
 import 'react-modern-drawer/dist/index.css';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { useAuthContext } from '../../context/AuthContext';
 import { BsHandbag } from 'react-icons/bs';
 
@@ -22,17 +22,11 @@ const Header = () => {
             <div className='font-logo text-[52px]'>FASCO</div>
             <div>
               <ul className='flex gap-7 text-base items-center justify-center'>
-                <li
-                  className='cursor-pointer	'
-                  onClick={() => {
-                    navigate('/');
-                  }}
-                >
-                  Home
-                </li>
+                <Link to='/'>Home</Link>
+
                 <li>Deals</li>
                 <li>New Arrivals</li>
-                <li>Packages</li>
+                <Link to='/shop'>Shop</Link>
                 {user && user.email ? (
                   <>
                     <p>{user.displayName}</p>

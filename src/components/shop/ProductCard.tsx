@@ -1,17 +1,14 @@
 import { useNavigate } from 'react-router';
 import { Product } from '../../interface/Product';
-import { useProductContext } from '../../context/ProductContext';
 
 interface ProductCardI {
   product: Product;
 }
 const ProductCard: React.FC<ProductCardI> = ({ product }) => {
   const navigate = useNavigate();
-  const { setProduct } = useProductContext();
 
   const navigateToProductDetail = () => {
-    setProduct(product);
-    navigate('/product');
+    navigate(`/product/${product.id}`);
   };
 
   return (

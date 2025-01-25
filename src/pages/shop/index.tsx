@@ -31,7 +31,6 @@ const Shop = () => {
   };
 
   const handleCategoryChange = async (category: string) => {
-    console.log(category);
     setSelectedCategory(category);
     const skip = page * LIMIT;
 
@@ -42,8 +41,6 @@ const Shop = () => {
     setTotalPage(Math.ceil(data.total / LIMIT));
     setCatProducts(data.products);
   };
-
-  const clearFilters = () => {};
 
   useEffect(() => {
     const skip = page * LIMIT;
