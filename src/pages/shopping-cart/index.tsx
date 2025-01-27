@@ -1,8 +1,18 @@
 import { FaPlus } from 'react-icons/fa';
-import ProductImage from '../../assets/product-image.png';
 import { FiMinus } from 'react-icons/fi';
+import { useEffect, useState } from 'react';
+import { Cart } from '../../interface/Cart';
 
 const ShoppingCart = () => {
+  const [cartData, setCartData] = useState<Cart>();
+  useEffect(() => {
+    fetch('https://dummyjson.com/carts/1').then((response) =>
+      response.json().then((data) => {
+        setCartData(data);
+      })
+    );
+  }, []);
+
   return (
     <div>
       <h1 className='font-logo text-[42px] leading-8 items-center flex justify-center'>
@@ -19,32 +29,41 @@ const ShoppingCart = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className='py-5'>
-              <div className='flex'>
-                <div className='w-1/2'>
-                  <img src={ProductImage} className='object-cover' />
-                </div>
-                <div className='w-1/2 flex flex-col gap-3'>
-                  <p className='font-logo'>Mini dress with ruffled straps</p>
-                  <p className='text-[#8A8A8A] text-xl'>Color : Red</p>
-                </div>
-              </div>
-            </td>
-            <td className='font-logo'>$19.99</td>
-            <td>
-              <div className='border-2 border-gray-300 justify-between flex rounded items-center px-4 h-11'>
-                <button>
-                  <FaPlus size={8} />
-                </button>
-                1
-                <button>
-                  <FiMinus size={8} />
-                </button>
-              </div>
-            </td>
-            <td className='font-logo'>$19.90</td>
-          </tr>
+          {cartData &&
+            cartData.products.map((cartItem, index) => {
+              return (
+                <tr key={index}>
+                  <td className='p-4 text-left'>
+                    <div className='flex'>
+                      <div className='w-1/2'>
+                        <img
+                          src={cartItem.thumbnail}
+                          className='object-cover w-full h-auto'
+                        />
+                      </div>
+                      <div className='w-1/2 flex flex-col gap-3 justify-center'>
+                        <p className='font-logo'>{cartItem.title}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td className='font-logo text-left p-4'>{cartItem.price}</td>
+                  <td className='p-4'>
+                    <div className='border-2 border-gray-300 justify-between flex rounded items-center px-4 h-11'>
+                      <button>
+                        <FaPlus size={8} />
+                      </button>
+                      {cartItem.quantity}
+                      <button>
+                        <FiMinus size={8} />
+                      </button>
+                    </div>
+                  </td>
+                  <td className='font-logo text-left p-4'>
+                    {cartItem.price * cartItem.quantity}
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
 
@@ -58,9 +77,9 @@ const ShoppingCart = () => {
         </div>
 
         <div className='h-[1px] bg-black w-1/3'></div>
-        <div className='flex justify-between font-logo text-xl'>
-          <p>Subtotal</p>
-          <p>$100.00</p>
+        <div className='flex justify-between gap-2 font-logo text-xl'>
+          <p>Subtotal : </p>
+          <p>{cartData?.total}</p>
         </div>
         <button className='bg-black text-white w-[152px] h-[56px] rounded-xl'>
           Checkout
