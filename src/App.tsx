@@ -7,22 +7,25 @@ import Shop from './pages/shop';
 import ProductDetail from './pages/product';
 import ShoppingCart from './pages/shopping-cart';
 import Checkout from './pages/checkout';
+import { CartProvider } from './context/CartContext';
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter basename={import.meta.env.BASE_URL}>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path='shop' element={<Shop />} />
-            <Route path='product/:productId' element={<ProductDetail />} />
-            <Route path='cart' element={<ShoppingCart />} />
-            <Route path='checkout' element={<Checkout />} />
-          </Route>
+      <CartProvider>
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path='shop' element={<Shop />} />
+              <Route path='product/:productId' element={<ProductDetail />} />
+              <Route path='cart' element={<ShoppingCart />} />
+              <Route path='checkout' element={<Checkout />} />
+            </Route>
 
-          <Route path='signup' element={<SignUp />} />
-        </Routes>
-      </BrowserRouter>
+            <Route path='signup' element={<SignUp />} />
+          </Routes>
+        </BrowserRouter>
+      </CartProvider>
     </AuthProvider>
   );
 }

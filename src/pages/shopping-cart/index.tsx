@@ -1,17 +1,9 @@
 import { FaPlus } from 'react-icons/fa';
 import { FiMinus } from 'react-icons/fi';
-import { useEffect, useState } from 'react';
-import { Cart } from '../../interface/Cart';
+import { useCartContext } from '../../context/CartContext';
 
 const ShoppingCart = () => {
-  const [cartData, setCartData] = useState<Cart>();
-  useEffect(() => {
-    fetch('https://dummyjson.com/carts/1').then((response) =>
-      response.json().then((data) => {
-        setCartData(data);
-      })
-    );
-  }, []);
+  const { cart } = useCartContext();
 
   return (
     <div>
@@ -29,8 +21,9 @@ const ShoppingCart = () => {
           </tr>
         </thead>
         <tbody>
-          {cartData &&
-            cartData.products.map((cartItem, index) => {
+          {cart &&
+            cart.products &&
+            cart.products.map((cartItem, index) => {
               return (
                 <tr key={index}>
                   <td className='p-4 text-left'>
@@ -79,7 +72,7 @@ const ShoppingCart = () => {
         <div className='h-[1px] bg-black w-1/3'></div>
         <div className='flex justify-between gap-2 font-logo text-xl'>
           <p>Subtotal : </p>
-          <p>{cartData?.total}</p>
+          <p>{cart?.total}</p>
         </div>
         <button className='bg-black text-white w-[152px] h-[56px] rounded-xl'>
           Checkout
