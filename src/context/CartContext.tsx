@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { Cart } from '../interface/Cart';
-import { useAuthContext } from './AuthContext';
+// import { useAuthContext } from './AuthContext';
 
 export interface CartContextI {
   cart: Cart | null;
@@ -13,7 +13,7 @@ interface CartProviderI {
   children: React.ReactNode;
 }
 export const CartProvider: React.FC<CartProviderI> = ({ children }) => {
-  const { user } = useAuthContext();
+  // const { user } = useAuthContext();
   const [cart, setCart] = useState<Cart>({
     id: '',
     discountedTotal: 0,

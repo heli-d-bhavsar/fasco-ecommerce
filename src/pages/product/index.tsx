@@ -189,7 +189,12 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      <Drawer open={true} onClose={toggleDrawer} direction='right' size={600}>
+      <Drawer
+        open={true}
+        onClose={toggleDrawer}
+        direction='right'
+        style={{ maxWidth: '600px', width: '60%' }}
+      >
         <MiniCart />
       </Drawer>
     </>

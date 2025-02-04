@@ -5,21 +5,21 @@ const MiniCart = () => {
   const navigate = useNavigate();
 
   return (
-    <div className='flex flex-col p-4 gap-6 overflow-y-auto w-full h-full'>
-      <h1 className='font-logo text-4xl'>Shopping Cart</h1>
-      <h2 className='text-2xl text-[#8A8A8A]'>
+    <div className='flex flex-col p-2 md:p-4 gap-6 overflow-y-auto w-full h-full'>
+      <h1 className='font-logo text-2xl md:text-4xl'>Shopping Cart</h1>
+      <h2 className='text-xl md:text-2xl text-[#8A8A8A]'>
         Buy <span>$122.35</span> more and get <span>free shipping</span>
       </h2>
 
       {cart?.products.map((product) => {
         return (
-          <div className='flex gap-3'>
+          <div className='flex flex-col md:flex-row gap-3 items-center'>
             <div>
               <img src={product.thumbnail} />
             </div>
             <div>
-              <p className='font-logo text-xl'>{product.title}</p>
-              <p className='text-xl'>{product.price}</p>
+              <p className='font-logo text-lg md:text-xl'>{product.title}</p>
+              <p className='text-lg md:text-xl'>{product.price}</p>
             </div>
           </div>
         );
