@@ -38,6 +38,11 @@ const ProductDetail = () => {
     if (cart && cart.products) {
       setCart({
         ...cart,
+        totalProducts: cart.totalProducts + quantity,
+        total: cart.total + product.price * quantity,
+        discountedTotal:
+          cart.discountedTotal +
+          product.discountPercentage * product.price * quantity,
         products: [
           ...cart.products,
           {
@@ -184,7 +189,7 @@ const ProductDetail = () => {
         </div>
       </div>
 
-      <Drawer open={isOpen} onClose={toggleDrawer} direction='right' size={600}>
+      <Drawer open={true} onClose={toggleDrawer} direction='right' size={600}>
         <MiniCart />
       </Drawer>
     </>
