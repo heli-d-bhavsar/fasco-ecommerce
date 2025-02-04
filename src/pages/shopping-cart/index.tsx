@@ -67,109 +67,169 @@ const ShoppingCart = () => {
 
   return (
     <div>
-      <h1 className='font-logo text-[42px] leading-8 items-center flex justify-center'>
+      <h1 className='font-logo text-3xl md:text-[42px] leading-8 items-center flex justify-center mb-10'>
         Shopping Cart
       </h1>
 
       {cart?.products && cart.totalProducts > 0 ? (
         <>
-          <table className='table-auto w-full mt-8'>
-            <thead className='font-logo text-xl p-4'>
-              <tr>
-                <th className='font-logo text-left p-10 border-b-2'>Product</th>
-                <th className='font-logo text-left p-10 border-b-2'>Price</th>
-                <th className='font-logo text-left p-10 border-b-2'>
-                  Quantity
-                </th>
-                <th className='font-logo text-left p-10 border-b-2'>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {cart &&
-                cart.products &&
-                cart.products.map((cartItem, index) => {
-                  return (
-                    <tr key={index}>
-                      <td className='p-4 text-left'>
-                        <div className='flex'>
-                          <div className='w-1/2'>
-                            <img
-                              src={cartItem.thumbnail}
-                              className='object-cover w-full h-auto'
-                            />
+          <div className='hidden md:flex'>
+            <table className='table-auto w-full mt-8'>
+              <thead className='font-logo text-xl p-4'>
+                <tr>
+                  <th className='font-logo text-left p-10 border-b-2'>
+                    Product
+                  </th>
+                  <th className='font-logo text-left p-10 border-b-2'>Price</th>
+                  <th className='font-logo text-left p-10 border-b-2'>
+                    Quantity
+                  </th>
+                  <th className='font-logo text-left p-10 border-b-2'>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {cart &&
+                  cart.products &&
+                  cart.products.map((cartItem, index) => {
+                    return (
+                      <tr key={index}>
+                        <td className='p-4 text-left'>
+                          <div className='flex'>
+                            <div className='w-1/2'>
+                              <img
+                                src={cartItem.thumbnail}
+                                className='object-cover w-full h-auto'
+                              />
+                            </div>
+                            <div className='w-1/2 flex flex-col gap-3 justify-center'>
+                              <p className='font-logo'>{cartItem.title}</p>
+                            </div>
                           </div>
-                          <div className='w-1/2 flex flex-col gap-3 justify-center'>
-                            <p className='font-logo'>{cartItem.title}</p>
-                          </div>
-                        </div>
-                      </td>
-                      <td className='font-logo text-left p-4'>
-                        {cartItem.price}
-                      </td>
-                      <td className='p-4'>
-                        <div className='border-2 border-gray-300 justify-between flex rounded items-center px-4 h-11'>
-                          <button
-                            className='pointer'
-                            onClick={() => {
-                              updateQuantity(
-                                cartItem.id,
-                                cartItem.quantity + 1
-                              );
-                            }}
-                          >
-                            <FaPlus size={12} />
-                          </button>
-                          {cartItem.quantity}
-                          {cartItem.quantity === 1 ? (
-                            <button
-                              className='pointer'
-                              onClick={() => {
-                                removeProduct(cartItem.id);
-                              }}
-                            >
-                              <RiDeleteBin6Line size={16} />
-                            </button>
-                          ) : (
+                        </td>
+                        <td className='font-logo text-left p-4'>
+                          {cartItem.price}
+                        </td>
+                        <td className='p-4'>
+                          <div className='border-2 border-gray-300 justify-between flex rounded items-center px-4 h-11'>
                             <button
                               className='pointer'
                               onClick={() => {
                                 updateQuantity(
                                   cartItem.id,
-                                  cartItem.quantity - 1
+                                  cartItem.quantity + 1
                                 );
                               }}
                             >
-                              <FiMinus size={12} />
+                              <FaPlus size={12} />
                             </button>
-                          )}
-                        </div>
-                      </td>
-                      <td className='font-logo text-left p-4'>
-                        {cartItem.price * cartItem.quantity}
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
-          <div className='flex justify-end flex-col items-end gap-6'>
+                            {cartItem.quantity}
+                            {cartItem.quantity === 1 ? (
+                              <button
+                                className='pointer'
+                                onClick={() => {
+                                  removeProduct(cartItem.id);
+                                }}
+                              >
+                                <RiDeleteBin6Line size={16} />
+                              </button>
+                            ) : (
+                              <button
+                                className='pointer'
+                                onClick={() => {
+                                  updateQuantity(
+                                    cartItem.id,
+                                    cartItem.quantity - 1
+                                  );
+                                }}
+                              >
+                                <FiMinus size={12} />
+                              </button>
+                            )}
+                          </div>
+                        </td>
+                        <td className='font-logo text-left p-4'>
+                          {cartItem.price * cartItem.quantity}
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          </div>
+
+          {/* MOBILE VIEW */}
+
+          <div className='flex flex-col gap-9 md:hidden'>
+            {cart &&
+              cart.products &&
+              cart.products.map((cartItem, index) => {
+                return (
+                  <div className='flex' key={index}>
+                    <div className='w-1/2'>
+                      <img src={cartItem.thumbnail} className=' w-36 h-36' />
+                    </div>
+                    <div className='w-1/2 flex flex-col gap-3'>
+                      <p className='font-logo'>{cartItem.title}</p>
+                      <p className='font-logo'>$ {cartItem.price}</p>
+                      <div className='border-2 border-gray-300 justify-between flex rounded items-center p-3 h-8'>
+                        <button
+                          className='pointer'
+                          onClick={() => {
+                            updateQuantity(cartItem.id, cartItem.quantity + 1);
+                          }}
+                        >
+                          <FaPlus size={12} />s
+                        </button>
+                        {cartItem.quantity}
+                        {cartItem.quantity === 1 ? (
+                          <button
+                            className='pointer'
+                            onClick={() => {
+                              removeProduct(cartItem.id);
+                            }}
+                          >
+                            <RiDeleteBin6Line size={16} />
+                          </button>
+                        ) : (
+                          <button
+                            className='pointer'
+                            onClick={() => {
+                              updateQuantity(
+                                cartItem.id,
+                                cartItem.quantity - 1
+                              );
+                            }}
+                          >
+                            <FiMinus size={12} />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+
+          <div className='flex justify-center md:justify-end flex-col items-center md:items-end gap-6 mt-10'>
             <div className='flex gap-2'>
               <input type='checkbox' />
-              <p className='text-[#8A8A8A] text-xl'>
+              <p className='text-[#8A8A8A] text-md md:text-xl'>
                 For <span className='text-black'>$10.00</span> please wrap the
                 product
               </p>
             </div>
 
-            <div className='h-[1px] bg-black w-1/3'></div>
-            <div className='flex justify-between gap-2 font-logo text-xl'>
+            <div className='h-[1px] bg-black w-full md:w-1/3'></div>
+            <div className='flex justify-between gap-2 font-logo text-md md:text-xl'>
               <p>Subtotal : </p>
               <p>{cart?.total}</p>
             </div>
             <button className='bg-black text-white w-[152px] h-[56px] rounded-xl'>
               Checkout
             </button>
-            <button className='font-logo underline text-xl'>View Cart</button>
+            <button className='font-logo underline text-md md:text-xl'>
+              View Cart
+            </button>
           </div>
         </>
       ) : (
