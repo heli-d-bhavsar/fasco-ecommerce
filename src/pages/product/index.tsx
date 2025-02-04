@@ -190,7 +190,7 @@ const ProductDetail = () => {
       </div>
 
       <Drawer
-        open={true}
+        open={isOpen}
         onClose={toggleDrawer}
         direction='right'
         style={{ maxWidth: '600px', width: '60%' }}
